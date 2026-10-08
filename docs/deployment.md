@@ -31,7 +31,8 @@
 - [ ] Retention configured for `LOG_DIR` on the API host (not cleaned automatically).
 - [ ] Dependency scanning enabled.
 - [ ] Container runs as a non-root user if containerized (the provided image uses UID 10001).
-- [ ] Production frontend uses `npm run build && npm run start` (or a static host), not the compose dev server.
+- [ ] Frontend image built with the correct `API_URL` build argument (it is fixed at build time).
+- [ ] TLS terminated in front of both containers; ports not published beyond the proxy.
 - [ ] Frontend lockfile committed and `npm audit` / Dependabot enabled.
 - [ ] Multi-instance deployments use durable pipeline state.
 

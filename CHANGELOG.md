@@ -14,6 +14,7 @@ Security fixes from [docs/security-review.md](docs/security-review.md):
 - Markdown code fences are now scanned (SR-08). Malware objects are purged across all versions (SR-10).
 - GuardDuty `UNSUPPORTED` is reported as such (SR-15). Auto-created buckets get Block Public Access (SR-16). CORS tightened (SR-17).
 - Docker: writable log directory for the non-root user, spaCy model installed, healthcheck added (SR-19).
+- Docker: production frontend image (Next.js standalone, non-root); `docker compose up --build` now runs the whole app with no local Python or Node. Ports bound to `127.0.0.1`. CI builds both images.
 - Default model updated to `claude-sonnet-5-5`.
 - Explicit ruff rule set (CI lint was failing on newer ruff), `build` added to dev dependencies, CI uses `npm ci` with the lockfile.
 - Added [docs/test-plan.md](docs/test-plan.md) and 26 new tests (31 total).

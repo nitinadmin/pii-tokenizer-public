@@ -103,7 +103,26 @@ pii-tokenizer/
 - Anthropic API key
 - An English spaCy model supported by the installed Presidio/spaCy versions
 
-## Quick start
+## Quick start (Docker, recommended)
+
+You need Docker with Compose v2. You don't need Python, Node or spaCy on your machine.
+
+```bash
+git clone https://github.com/YOUR_ORG/pii-tokenizer.git
+cd pii-tokenizer
+cp .env.example .env      # add your AWS settings and ANTHROPIC_API_KEY
+docker compose up --build
+```
+
+Open `http://localhost:3000`. The API is at `http://localhost:8000` (OpenAPI at `/docs`).
+
+- The first build downloads the spaCy model and takes several minutes. The API image is about 1.5 GB.
+- Both ports are bound to `127.0.0.1`, so only this machine can reach the app. The API has no authentication; read [docs/deployment.md](docs/deployment.md) before exposing it.
+- With no GuardDuty Malware Protection on your bucket, every upload is blocked after `GUARDDUTY_MAX_WAIT` (fail-closed). To try the app locally without GuardDuty, set `GUARDDUTY_FAIL_OPEN=true` in `.env`, and never do this in production.
+- Logs persist in the `api_logs` volume. `docker compose down -v` removes it.
+- After changing `.env`, run `docker compose up -d`. After changing code, add `--build`.
+
+## Quick start (local development)
 
 ### 1. Clone and configure
 
@@ -149,14 +168,14 @@ npm run dev
 
 Open `http://localhost:3000`.
 
-### Docker
+### Container images
 
-```bash
-cp .env.example .env   # fill in values
-docker compose up --build
-```
+| Image | Built from | Runs as | Notes |
+|---|---|---|---|
+| API | [Dockerfile](Dockerfile) | UID 10001 | Includes `en_core_web_lg`; `/health` healthcheck; logs in `/app/logs` |
+| Frontend | [frontend/Dockerfile](frontend/Dockerfile) | `node` | Production Next.js standalone server; no dev dependencies |
 
-The API image installs `en_core_web_lg` (adds roughly 600 MB), runs as UID 10001, writes logs to `/app/logs` and has a `/health` healthcheck. The compose `frontend` service runs the Next.js **dev server** and is for local use only.
+The frontend proxies `/api/*` to the API. Next.js fixes that address **at build time** through the `API_URL` build argument (default `http://api:8000`). If the API runs elsewhere, rebuild with `--build-arg API_URL=...`.
 
 ## Configuration
 

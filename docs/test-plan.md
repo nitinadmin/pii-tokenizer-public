@@ -61,7 +61,8 @@ Never use real customer documents in any test. Use only synthetic PII, such as `
 | ID | Check | How | Status |
 |---|---|---|---|
 | TP-BUILD-01 | Frontend builds | `cd frontend && npm run build` (CI job `frontend`) | Automated in CI |
-| TP-BUILD-02 | Container builds, starts as non-root, `/health` passes the Docker `HEALTHCHECK` | `docker build -t pii-tokenizer . && docker run --rm --env-file .env -p 8000:8000 pii-tokenizer` then `curl localhost:8000/health`; `docker exec <id> id -u` returns `10001` | Manual; recommended to add to CI |
+| TP-BUILD-02 | API and frontend images build | CI job `docker` (`docker build` for both images) | Automated in CI |
+| TP-BUILD-04 | Stack starts: API healthy and running as UID 10001, frontend serves `/`, and SSE events arrive one by one through the frontend proxy | `docker compose up --build`, then `docker compose ps` (both healthy), `docker compose exec api id -u` returns `10001`, and run one document end to end in the UI | Manual |
 | TP-BUILD-03 | Lint | `ruff check src tests` | Automated in CI |
 
 ## AWS integration checklist (manual, before each release)
@@ -94,7 +95,7 @@ Run these in a non-production account, with the IAM policies from [deployment.md
 ## Exit criteria for a release
 
 1. `pytest` and `ruff check src tests` pass in CI.
-2. TP-BUILD-01 and TP-BUILD-02 pass.
+2. TP-BUILD-01, TP-BUILD-02 and TP-BUILD-04 pass.
 3. TP-AWS-01 to TP-AWS-06 pass in the integration account.
 4. TP-DETECT-03 has been run if detection code, engines or models changed.
 5. No open Critical or High findings in [security-review.md](security-review.md) other than those accepted as deployment responsibilities.
