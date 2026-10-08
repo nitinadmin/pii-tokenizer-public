@@ -48,10 +48,10 @@ dev = [
 pii-tokenizer = "pii_tokenizer.main:run"
 
 [project.urls]
-Homepage = "https://github.com/YOUR_ORG/pii-tokenizer"
-Repository = "https://github.com/YOUR_ORG/pii-tokenizer"
-Issues = "https://github.com/YOUR_ORG/pii-tokenizer/issues"
-Security = "https://github.com/YOUR_ORG/pii-tokenizer/security/policy"
+Homepage = "https://github.com/nitinadmin/pii-tokenizer-public"
+Repository = "https://github.com/nitinadmin/pii-tokenizer-public"
+Issues = "https://github.com/nitinadmin/pii-tokenizer-public/issues"
+Security = "https://github.com/nitinadmin/pii-tokenizer-public/security/policy"
 
 [tool.setuptools.packages.find]
 where = ["src"]

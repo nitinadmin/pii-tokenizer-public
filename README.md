@@ -1,6 +1,6 @@
 # PII Tokenizer
 
-[![CI](https://github.com/YOUR_ORG/pii-tokenizer/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR_ORG/pii-tokenizer/actions/workflows/ci.yml)
+[![CI](https://github.com/nitinadmin/pii-tokenizer-public/actions/workflows/ci.yml/badge.svg)](https://github.com/nitinadmin/pii-tokenizer-public/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 **Security-first document processing that detects and replaces PII before content is sent to an LLM.**
@@ -108,8 +108,8 @@ pii-tokenizer/
 You need Docker with Compose v2. You don't need Python, Node or spaCy on your machine.
 
 ```bash
-git clone https://github.com/YOUR_ORG/pii-tokenizer.git
-cd pii-tokenizer
+git clone https://github.com/nitinadmin/pii-tokenizer-public.git
+cd pii-tokenizer-public
 cp .env.example .env      # add your AWS settings and ANTHROPIC_API_KEY
 docker compose up --build
 ```
@@ -127,8 +127,8 @@ Open `http://localhost:3000`. The API is at `http://localhost:8000` (OpenAPI at 
 ### 1. Clone and configure
 
 ```bash
-git clone https://github.com/YOUR_ORG/pii-tokenizer.git
-cd pii-tokenizer
+git clone https://github.com/nitinadmin/pii-tokenizer-public.git
+cd pii-tokenizer-public
 
 cp .env.example .env
 # Edit .env with your environment-specific values.
