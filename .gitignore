@@ -1,0 +1,50 @@
+# ── Environment & secrets ──
+.env
+.env.local
+.env.*.local
+
+# ── Python ──
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+
+# ── Node / Next.js ──
+node_modules/
+frontend/.next/
+frontend/out/
+frontend/.cache/
+
+# ── Logs ──
+logs/
+src/pii_tokenizer/logs/
+*.log
+
+# ── OS files ──
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── IDE / editor ──
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── Testing / coverage ──
+.coverage
+htmlcov/
+.pytest_cache/
+coverage/
+.nyc_output/
+
+# Build metadata
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.whl

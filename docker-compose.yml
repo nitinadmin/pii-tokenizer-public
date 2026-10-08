@@ -1,0 +1,31 @@
+services:
+  api:
+    build: .
+    env_file:
+      - .env
+    environment:
+      # Overrides any relative LOG_DIR in .env; this path is writable by the
+      # container's non-root user.
+      LOG_DIR: /app/logs
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  # Local development only: runs the Next.js dev server.
+  frontend:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+      - frontend_node_modules:/app/node_modules
+    environment:
+      NEXT_TELEMETRY_DISABLED: "1"
+      API_URL: "http://api:8000"
+    ports:
+      - "3000:3000"
+    command: sh -c "npm install && npm run dev"
+    depends_on:
+      - api
+
+volumes:
+  frontend_node_modules:
